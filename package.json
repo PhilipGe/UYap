@@ -18,12 +18,14 @@
   "bugs": "",
   "keywords": [],
   "author": {
-    "name": "",
-    "email": "",
-    "url": ""
+    "name": "UYap",
+    "url": "https://github.com/PhilipGe/UYap.git"
   },
   "contributors": [
-
+    "Philip Gessen philip.gessen@gmail.com",
+    "Michael Roncevich Michaelroncevich01@gmail.com",
+    "Cadence Young youngcr3710@gmail.com",
+    "Katelyn Leung katelynleung7@gmail.com"
   ],
   "scripts": {
     "dev": "",
