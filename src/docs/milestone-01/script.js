@@ -7,3 +7,4 @@ Array.from(document.getElementsByClassName('wf-img')).forEach(e => {
         e.style.width === "1000px" ? e.style.width = "500px" : e.style.width = "1000px" ;
     });
 });
+sfdsfg d
