@@ -2,29 +2,52 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!--   
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    -->
     <title>UYap</title>
 
-
-    <!-- CSS Stylesheets -->
     <link rel="stylesheet" href="styles.css" />
-    <!-- JavaScript Files -->
     <script type="module" src="script.js" defer></script>
   </head>
 
   <body>
-
-    <p id="loading" class="loading">
-
-    </p>
+    <p id="loading"> </p>
 
     <div class = "container">
-      <textarea  cols="30" rows="1" class="big-input" id="title-text"></textarea>
-      <textarea  cols="30" rows="5" class="big-input" id="body-text"></textarea>
-      <button id="submit"> post </button>
+      <div id="top-bar" class="container-element"> 
+        <div id="create"> Create a Post </div>
+
+        <div id="list1" class="dropdown-check-list" tabindex="100">
+          <span class="anchor">tags</span>
+          <ul class="items" id="menu">
+            <!-- 
+            <li><input type="checkbox" id="t1"/>Apple </li>
+            <li><input type="checkbox" />Orange</li>
+            <li><input type="checkbox" />Grapes </li>
+            <li><input type="checkbox" />Berry </li>
+            <li><input type="checkbox" />Mango </li>
+            <li><input type="checkbox" />Banana </li>
+            <li><input type="checkbox" />Tomato</li>
+            -->
+          </ul>
+        </div>
+
+
+
+
+        <!--
+        <select name="slct" id="slct" multiple>
+          <option>no tags</option>
+          <option value="tag one">tag one</option>
+          <option value="tag two">tag two</option>
+          <option value="tag three">tag three</option>
+          <option value="tag four">tag four</option>
+          <option value="tag five">tag five</option>
+        </select>
+        -->
+        
+      </div>
+      <textarea  cols="60" rows="1" class="container-element" id="title-text" placeholder="title"></textarea>
+      <textarea  cols="60" rows="5" class="container-element" id="body-text" placeholder="body"></textarea>
+      <button id="submit" class="container-element"> post </button>
     </div>
     
 
