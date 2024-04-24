@@ -29,7 +29,8 @@
   ],
   "scripts": {
     "milestone-01": "http-server src/docs/milestone-01 -p 3000 -c-1 -o -s",
-    "cadencetest": "http-server cadencetest -p 3000 -c-1 -o -s",
+    "katelyn": "http-server katelyn -p 3000 -c-1 -o -s",
+    "cadence": "http-server cadencetest -p 3000 -c-1 -o -s",
     "validate-html": "html-validate 'src/**/*.html'",
     "prettier": "prettier src —write",
     "dev": "",
