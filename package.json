@@ -32,7 +32,7 @@
     "katelyn": "http-server katelyn -p 3000 -c-1 -o -s",
     "cadence": "http-server cadencetest -p 3000 -c-1 -o -s",
     "michael": "http-server michaelTest -p 3000 -c-1 -o -s",
-    "milestone-02": "http-server src/client -p 3001 -c-1 -o -s",
+    "milestone-02": "http-server src/client -p 3000 -c-1 -o -s",
     "gpt": "http-server gpt_testst -p 3000 -c-1 -o -s",
     "validate-html": "html-validate 'src/**/*.html'",
     "prettier": "prettier src —write",
