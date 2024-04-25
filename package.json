@@ -31,6 +31,9 @@
     "milestone-01": "http-server src/docs/milestone-01 -p 3000 -c-1 -o -s",
     "katelyn": "http-server katelyn -p 3000 -c-1 -o -s",
     "cadence": "http-server cadencetest -p 3000 -c-1 -o -s",
+    "michael": "http-server michaelTest -p 3000 -c-1 -o -s",
+    "milestone-02": "http-server src/client -p 3001 -c-1 -o -s",
+    "gpt": "http-server gpt_testst -p 3000 -c-1 -o -s",
     "validate-html": "html-validate 'src/**/*.html'",
     "prettier": "prettier src —write",
     "dev": "",
@@ -40,5 +43,8 @@
     "html-validate": "^8.18.1",
     "http-server": "^14.1.1",
     "prettier": "^3.2.5"
+  },
+  "dependencies": {
+    "pouchdb": "^8.0.1"
   }
 }

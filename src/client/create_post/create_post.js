@@ -1,11 +1,11 @@
 const bodyEl = document.getElementById("body-text");
-const buttonEl = document.getElementById("submit");
+const buttonEl = document.getElementById("submit-post");
 const loadEl = document.getElementById("loading");
 const titleEl = document.getElementById("title-text");
 const tagEl = document.getElementById("slct");
 const menuEl = document.getElementById("menu");
 
-import {Post} from "./post.js";
+import {Post} from "../data_structures/post.js";
 
 let allPosts = [];
 const placeholderID = 234221;
@@ -33,9 +33,9 @@ checkList.getElementsByClassName('anchor')[0].onclick = function(evt) {
 }
 
 
-buttonEl.addEventListener("click", (event) => {
-    sendPost();
-});
+// buttonEl.addEventListener("click", (event) => {
+//     sendPost();
+// });
 
 export async function getAllPosts() {
     return new Promise((resolve, reject) => {
@@ -84,3 +84,4 @@ async function sendPost() {
     });
 }
 
+export {sendPost}

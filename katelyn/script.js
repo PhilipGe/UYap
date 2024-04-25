@@ -22,11 +22,11 @@ function createBox(text){
   
 }
 
-function createPost(post) {
+function createPost(parent, post) {
   postList.forEach(post => {
     let postText = "posted " + post.timestamp + " mins ago<br><br><b>" + post.user_id + "</b>"+" said: <br><br>" + post.body + "<br><br>Filters: " + "<button id ='filterB' style='background-color: maroon; color: #00ff00';>"+post.tags[0]+"</buttonstyle='background-color: maroon; color: #00ff00'>" + "<button style='background-color: maroon; color: #00ff00'>"+post.tags[1]+"</button>";
      
-    document.body.appendChild(createBox(postText));
+    parent.appendChild(createBox(postText));
   });
 }
-createPost();
+// createPost();

@@ -1,0 +1,84 @@
+#home-page{
+    overflow: hidden;
+}
+
+#profile-button {
+    width: 40px;
+    height: 40px;
+    background-color: lightgray;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%) translateX(-10px);
+    background-image: url(../imgs/logout.webp);
+    background-size: cover;
+    border-radius: 50px;
+}
+
+#HOME-title-text {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 40px;
+    top: -10px;
+}
+
+/* 
+#home-button {
+    width: 90px;
+    height: 90px;
+    background-color: gray;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%) translateX(10px);
+} */
+
+#navbar {
+    width: 98%;
+    height: 100px;
+    background-color: gray;
+    position: absolute;
+    top: 0;
+    margin-top: 10px;
+    /* left: 5%; */
+    border-radius: 10px;
+    transform: translateX(1%);
+}
+
+#feed {
+    width: 1000px;
+    height: calc(100% - 110px);
+    background-color: darkgray;
+    position: absolute;
+    left: 50%;
+    top: 115px;
+    transform: translateX(-50%);
+    border-radius: 10px;
+    overflow: scroll;
+}
+
+#HOME-create-post-button{
+    width: 40px;
+    height: 40px;
+    background-color: lightgray;
+    position: absolute;
+    bottom: 50px;
+    left: 50px;
+    background-image: url(../imgs/plus_sign.png);
+    background-size: cover;
+    border-radius: 50px;
+}
+
+.post-box {
+    height: auto;
+    width: auto;
+    background-color: #2c2e36;
+    color: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
