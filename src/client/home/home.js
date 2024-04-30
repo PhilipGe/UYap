@@ -26,4 +26,16 @@ function createPosts(parent, posts) {
   });
 }
 
-createPosts(document.getElementById('feed'), postList)
+createPosts(document.getElementById('feed'), 
+fetch('localhost:3260/get_within_time_frame', {
+  method:'POST'
+,
+  body : JSON.stringify(
+    {
+      start_time: "One",
+      stop_time: "Two"
+    }
+  )
+})
+
+)

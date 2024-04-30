@@ -10,3 +10,4 @@ class Post {
   }
 }
 export { Post };
+

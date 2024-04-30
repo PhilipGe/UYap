@@ -60,28 +60,16 @@ function getTags() {
 
 async function sendPost() {
     loadEl.textContent = "Sending post...";
-    return new Promise((resolve, reject) => {
-        setTimeout(
-        () => {
-            //put the tags in the post object
-            //let tags = [];
-            //tags.push(tagEl.value);
-
-            let tags = getTags();
-            let newPost = new Post(titleEl.value, bodyEl.value, tags, placeholderID, Date.now());
-
-            allPosts.push(newPost);
-            console.log(allPosts);
-
-            loadEl.textContent = "";
-            bodyEl.value = "";
-            titleEl.value = "";
-            resolve(1);
-        },
-
-        Math.random() * 1000 + 1000,
-        );
-    });
+    return fetch('localhost:3260/savepost',{
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+              },
+            body: JSON.stringify({
+                post: new Post('TestTitle', 'TestBody',['tag1','tag2'],'123','FRIDAY')
+            })
+        });
 }
 
 export {sendPost}

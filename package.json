@@ -35,6 +35,7 @@
     "milestone-02": "http-server src/client -p 3000 -c-1 -o -s",
     "gpt": "http-server gpt_testst -p 3000 -c-1 -o -s",
     "validate-html": "html-validate 'src/**/*.html'",
+    "server": "node src/server/server.js",
     "prettier": "prettier src —write",
     "dev": "",
     "test": ""
@@ -45,6 +46,7 @@
     "prettier": "^3.2.5"
   },
   "dependencies": {
+    "express": "^4.19.2",
     "pouchdb": "^8.0.1"
   }
 }
