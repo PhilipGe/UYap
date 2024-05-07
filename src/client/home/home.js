@@ -1,38 +1,12 @@
 import { Post } from "../data_structures/post.js";
+import { getAllPosts } from "../db/db_functions_2.js";
 
-let postOne = new Post(
-  "hello world",
-  "Hey everyone! It's such a beautiful day",
-  ["umass", "silly"],
-  "helloW1",
-  "5"
-);
+const refreshButton = document.getElementById("refresh-button");
 
-let postTwo = new Post(
-  "HELLO",
-  "Hey everyone! Today is the big chess tournament!",
-  ["umass", "events"],
-  "helloW2",
-  "10"
-);
-
-let postList = [postOne, postTwo];
-
-["user1", "user2", "user3", "user4"].forEach((u, i) => {
-  postList.push(
-    new Post(
-      "Hi!",
-      `${u} talking!`,
-      ["auto-generated", `tag${i}`],
-      u,
-      i.toString()
-    )
-  );
-});
 /**
- *
- * @param text -- the whole post, the time, the user id and the message the user says
- * @returns a div, which is the post
+ * Creates a post box element with the given text.
+ * @param {string} text - The HTML content representing a post including timestamp, user ID, and message.
+ * @returns {HTMLDivElement} A div element styled as a post box containing the post.
  */
 function createBox(text) {
   let temp = document.createElement("div");
@@ -42,57 +16,149 @@ function createBox(text) {
 }
 
 /**
- *
- * @param {*} parent:div -- Where we plan on putting all these posts
- * @param {*} posts:array of posts/divs -- all of the posts in our database or arraylist
+ * Renders posts into a specified parent element.
+ * @param {HTMLElement} parent - The container element where posts will be appended.
+ * @param {Post[]} posts - An array of post objects to be displayed.
  */
 function createPosts(parent, posts) {
+  parent.innerHTML = '';
   posts.forEach((post) => {
     let postText =
       "posted " +
       post.timestamp +
-      " mins ago<br><br><b>" +
+      "<br><br><b>" +
       post.user_id +
       "</b>" +
       " said: <br><br>" +
       post.body +
       "<br><br>Tags: " +
-      "<button id ='filterB' style='background-color: #2c2e36; color: white';>" +
-      post.tags[0] +
-      "</buttonstyle='background-color: #2c2e36; color: white'>" +
-      "<button style='background-color: #2c2e36; color: white'>" +
-      post.tags[1] +
-      "</button>";
+      post.tags.reduce((acc, curr) => {
+        return acc + "<button id ='filterB' style='background-color: #2c2e36; color: white';>" + curr + "</button>"
+      }, '');
 
     parent.appendChild(createBox(postText));
   });
 }
 
-/**
- *
- * @returns a promise where it sends the updated Postlist if resolved
- */
+let tagFilters = [];
+let tagObjList = [];
+let allPosts = [];
 
-function getNewPostList() {
-  return new Promise((resolve, reject) => {
-    resolve(postList);
-  });
-}
 /**
- * This function is called when the refresh button is clicked, it refreshes
- * the feed with the newest posts.
+ * Creates or updates a tag button object.
+ * @param {string} tagname - The name of the tag.
+ * @returns {HTMLElement} A button element associated with the tag.
+ */
+function buildTagObject(tagname){
+  const el = document.createElement('button');
+  el.classList.add('tagButton');
+  el.innerHTML = tagname;
+
+  let tagObj;
+
+  if(tagObjList.find((v) => v.tagname === tagname)){
+    tagObj.DOMelement = el;
+  } else{
+    tagObj = {
+      name: tagname,
+      DOMelement: el,
+      selected: false
+    };
+    tagObjList.push(tagObj)
+  }
+
+  if(tagObj.selected){
+    el.style.backgroundColor = '#2c2e36';
+  }else{
+    el.style.backgroundColor = 'darkgray';
+  }
+
+  el.addEventListener('click', () => {
+    if (!tagObj.selected) {
+      el.style.backgroundColor = '#2c2e36';
+      tagObj.selected = true;
+      tagFilters.push(tagname);
+      filterPostsAndUpdatePage();
+    } else {
+      el.style.backgroundColor = 'darkgray';
+      tagObj.selected = false;
+      tagFilters = tagFilters.filter((v) => v !== tagname);
+      filterPostsAndUpdatePage();
+    }
+  });
+
+  return el;
+}
+
+/**
+ * Populates a given parent element with tag buttons for filtering posts.
+ * @param {HTMLElement} parent - The parent element to append tag buttons to.
+ * @param {string[]} tagList - An array of tag names to create buttons for.
+ */
+function buildTagButtonListForFiltering(parent, tagList){
+  parent.innerHTML = '';
+  tagObjList = [];
+  tagList.forEach(tag => {
+    parent.appendChild(buildTagObject(tag));
+  })
+}
+
+/**
+ * Retrieves an updated list of posts from the server.
+ * @returns {Promise<Post[]>} A promise that resolves with an array of updated posts.
+ */
+function getNewPostList() {
+  return getAllPosts();
+}
+
+/**
+ * Filters posts based on selected tags and updates the page with filtered posts.
+ */
+function filterPostsAndUpdatePage(){
+  let filteredPosts = [];
+  
+  tagObjList.forEach(tagObj => {
+    if(tagObj.selected) allPosts.forEach(post => {
+      if(post.tags.find(post_t => {
+        return tagObj.name === post_t;
+      })){
+        if(!filteredPosts.find((p) => p.timestamp === post.timestamp)){
+          filteredPosts.push(post);
+        }
+      }
+    });
+  });
+
+  if(filteredPosts.length === 0){
+    filteredPosts = allPosts;
+  }
+
+  createPosts(document.getElementById("feed"), filteredPosts);
+}
+
+/**
+ * Reloads the posts when the refresh button is clicked and updates the filter buttons.
  */
 async function reloadPostCallback() {
   try {
-    createPosts(document.getElementById("feed"), await getNewPostList());
-  } catch (error) {
+    tagObjList = [];
+    allPosts = await getNewPostList();
+    const allTags = [];
+    allPosts.forEach(post => post.tags.forEach(t => {
+      if(!allTags.includes(t)) {allTags.push(t);}
+    }));
+
+    buildTagButtonListForFiltering(document.getElementById('tag_list_container'), allTags);
+    filterPostsAndUpdatePage();
+    } catch (error) {
     document.getElementById("feed").innerHTML =
-      "Error. There are no posts currently.";
+      error;
   }
 }
 
-document
-  .getElementById("refresh-button")
-  .addEventListener("click", () => reloadPostCallback());
+refreshButton.addEventListener('click', reloadPostCallback);
+
+document.getElementById("refresh-button").addEventListener("click", reloadPostCallback);
 // document.getElementById("refresh-button").addEventListener("DOMContentLoaded");
+
 export { reloadPostCallback };

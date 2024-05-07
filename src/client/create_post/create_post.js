@@ -92,6 +92,15 @@ function getTags() {
    * Construct the post from the user input and store it in the database
    */
 async function sendPost() {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth()+1;
+    const day = date.getDate();
+    const hours = date.getHours();
+    let minutes = date.getMinutes();
+    if(minutes < 10 ){minutes = `0${minutes}`;}
+    const totalDate = `${month}/${day}/${year} at ${hours}:${minutes}`;
+
     if(titleEl.value === "") {
         alert("Please write a title for your post.");
         return;
@@ -104,7 +113,7 @@ async function sendPost() {
     loadEl.textContent = "Sending post...";
 
     let tags = getTags();
-    let newPost = new Post(titleEl.value, bodyEl.value, tags, placeholderID, Date.now());
+    let newPost = new Post(titleEl.value, bodyEl.value, tags, placeholderID, totalDate);
 
     try {
         const response = await savePost(newPost);
