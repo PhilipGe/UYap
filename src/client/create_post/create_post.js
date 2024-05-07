@@ -1,6 +1,5 @@
 import {Post} from "../data_structures/post.js";
-
-const db = new PouchDB('postsDB');
+import {savePost} from "../db/db_functions_2.js"
 
 const bodyEl = document.getElementById("body-text");
 const loadEl = document.getElementById("loading");
@@ -133,9 +132,9 @@ async function sendPost() {
     let newPost = new Post(titleEl.value, bodyEl.value, tags, placeholderID, Date.now());
 
     try {
-        const response = await db.post(newPost);
+        const response = await savePost(newPost);
     } catch (error) {
-        alert("There was an error saving your post.")
+        alert("There was an error saving your post.");
     }
 
     clearText();

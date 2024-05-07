@@ -73,7 +73,7 @@
 #refresh-button{
     width: 40px;
     height: 40px;
-    background-image: url(../imgs/reload_posts.png);
+    /* background-image: url(../imgs/reload_posts.png); */
     background-size: cover;
     background-color: darkgray;
     position: absolute;
