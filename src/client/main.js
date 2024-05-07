@@ -1,5 +1,5 @@
 import { sendPost } from "./create_post/create_post.js";
-
+import reloadPostCallback from ".home/home.js";
 let current_page = "login-page";
 
 const page_list = [
@@ -16,6 +16,7 @@ const loginButton = document.getElementById('login-button');
 const signupButton = document.getElementById('signup-button');
 const signUpHere = document.getElementById('sign-up-here');
 const loginHere = document.getElementById('log-in-here');
+const refreshButton = document.getElementById("refresh-button");
 
 function transitionToPage(page_id) {
     page_list.forEach((id) => {
@@ -27,17 +28,25 @@ function transitionToPage(page_id) {
 }
 
 transitionToPage("home-page");
+reloadPostCallback();
+
 
 HOMEcreatePostButton.addEventListener('click', () => transitionToPage('create-post-page'));
 profileButton.addEventListener('click', () => transitionToPage('login-page'));
 submitPostButton.addEventListener('click', () => {
-  sendPost().then(() => transitionToPage('home-page'));
-});
+  sendPost().then(() => 
+    transitionToPage('home-page'));
+    reloadPostCallback();
+  });
 loginButton.addEventListener('click', () => {
   transitionToPage('home-page');
+  reloadPostCallback();
+
 });
 signupButton.addEventListener('click', () => {
-  transitionToPage('home-page')
+  transitionToPage('home-page');
+  reloadPostCallback();
+
 });
 signUpHere.addEventListener('click', () => {
   transitionToPage('signup-page');
