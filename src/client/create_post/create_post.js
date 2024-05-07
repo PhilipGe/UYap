@@ -1,5 +1,6 @@
 import {Post} from "../data_structures/post.js";
-import {savePost} from "../db/db_functions_2.js"
+import {savePost} from "../db/db_functions_2.js";
+
 
 const bodyEl = document.getElementById("body-text");
 const loadEl = document.getElementById("loading");
@@ -40,10 +41,10 @@ function setUpTags() {
    *
    */
 bodyEl.addEventListener("keyup", (event) => {
-    db.put({_id: "bodytext", text: bodyEl.value});
+    localStorage.setItem("bodytext", bodyEl.value);
 })
 titleEl.addEventListener("keyup", (event) => {
-    db.put({_id: "titletext", text: titleEl.value});
+    localStorage.setItem("titletext", titleEl.value);
 })
 
 
@@ -52,22 +53,8 @@ titleEl.addEventListener("keyup", (event) => {
    *
    */
 function retrieveStoredText() {
-    db.get("bodytext")
-    .then(document => {
-        bodyEl.value = document.text;
-    })
-    .catch(error => {
-        // body text is not in storage
-        bodyEl.value = "";
-    });
-    db.get("titletext")
-    .then(document => {
-        titleEl.value = document.text;
-    })
-    .catch(error => {
-        // title text is not in storage
-        titleEl.value = "";
-    });
+    bodyEl.value = localStorage.getItem("bodytext");
+    titleEl.value = localStorage.getItem("titletext");
 }
 
 
@@ -80,20 +67,8 @@ function clearText() {
     bodyEl.value = "";
     titleEl.value = "";
 
-    db.get("bodytext")
-        .then(document => {
-            db.remove("bodytext", document._rev);
-        })
-        .catch(error => {
-            console.error('Error retrieving document:', error);
-        })
-    db.get("titletext")
-        .then(document => {
-            db.remove("titletext", document._rev);
-        })
-        .catch(error => {
-            console.error('Error retrieving document:', error);
-        })
+    localStorage.setItem("bodytext", bodyEl.value);
+    localStorage.setItem("titletext", titleEl.value);
 }
 
 
