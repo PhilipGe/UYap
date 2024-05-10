@@ -1,5 +1,7 @@
 import {Post} from "../data_structures/post.js";
 import {savePost} from "../db/db_functions_2.js";
+const URL = "http://localhost:3260";
+
 
 
 const bodyEl = document.getElementById("body-text");
@@ -115,11 +117,15 @@ async function sendPost() {
     let tags = getTags();
     let newPost = new Post(titleEl.value, bodyEl.value, tags, placeholderID, totalDate);
 
-    try {
-        const response = await savePost(newPost);
-    } catch (error) {
-        alert("There was an error saving your post.");
-    }
+    const response = await fetch(`${URL}/savepost`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            post: newPost
+        })
+    });
 
     clearText();
 }

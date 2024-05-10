@@ -2,7 +2,6 @@ import { transitionToPage } from "../main.js";
 import {
   savePost,
   doesUserExist,
-  getPostsByTag,
   saveUser,
   authenticate,
 } from "../db/db_functions_2.js";

@@ -2,6 +2,8 @@ import { Post } from "../data_structures/post.js";
 import { getAllPosts } from "../db/db_functions_2.js";
 
 const refreshButton = document.getElementById("refresh-button");
+const URL = "http://localhost:3260";
+
 
 /**
  * Creates a post box element with the given text.
@@ -107,8 +109,8 @@ function buildTagButtonListForFiltering(parent, tagList){
  * Retrieves an updated list of posts from the server.
  * @returns {Promise<Post[]>} A promise that resolves with an array of updated posts.
  */
-function getNewPostList() {
-  return getAllPosts();
+async function getNewPostList() {
+  return fetch(`${URL}/get_all_posts`, {method: "GET"}).then(response => response.json());
 }
 
 /**

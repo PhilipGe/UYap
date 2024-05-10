@@ -1,12 +1,21 @@
-import pouchdb from 'pouchdb';
+import PouchDB from 'pouchdb';
+const database = new PouchDB("UYapDB");
 
-const database = new pouchdb('UYapDB')
+async function savePost(post) {
+    console.log("in db savepost");
+  await database.post(post);
+}
 
-function savePost(user_id, post) {
-//saves in database using pouchdb
-    database.put(
-        // Something
-    )
+async function getAllPosts(){
+    const result = await database.allDocs({ include_docs: true });
+    const postList = [];
+    result.rows.forEach(row => {
+        //Identify all posts
+      if(Object.keys(row.doc).includes("body")){
+        postList.push(row.doc);
+      }
+    });
+    return postList;
 }
 
 function getPostsInTimeFrame(start_time, end_time) {}
@@ -22,5 +31,6 @@ export {
     getPostsInTimeFrame,
     getPostsByTag,
     saveUser,
-    getAuthentication
+    getAuthentication,
+    getAllPosts
 };
