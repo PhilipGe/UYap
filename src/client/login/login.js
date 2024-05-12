@@ -1,6 +1,5 @@
 import { transitionToPage } from "../main.js";
 import {
-  savePost,
   doesUserExist,
   saveUser,
   authenticate,

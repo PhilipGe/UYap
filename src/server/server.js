@@ -12,10 +12,15 @@ app.get("/get_all_posts", async (req, res) => {
   res.end(JSON.stringify(result));
 })
 
-app.post("/savepost", (req, res) => {
+app.post("/savepost", async (req, res) => {
   db.savePost(req.body.post);
   res.end();
 });
+
+app.delete("/deletepost/:id", async (req, res) => {
+  console.log("id that server received: ", req.params.id);
+  db.deletePost(req.params.id);
+})
 
 const PORT = 3260;
 

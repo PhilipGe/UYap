@@ -74,7 +74,7 @@ html {background-color: #303030}
 
     border: 2px solid white;
 
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .container-element {
@@ -137,6 +137,6 @@ select {
     right: 0;
     transform: translate(-100%, -100%);
     color: white;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Courier New', Courier, monospace;
 }
 
