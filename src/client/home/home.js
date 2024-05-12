@@ -1,4 +1,5 @@
 import { Post } from "../data_structures/post.js";
+import { getCurrentUser } from "../utils/utils.js";
 //import { getAllPosts } from "../db/db_functions_2.js";
 
 const refreshButton = document.getElementById("refresh-button");
@@ -17,10 +18,6 @@ function createBox(text, deleteButton) {
   temp.appendChild(deleteButton);
 
   return temp;
-}
-
-function getCurrentUser() {
-  return "name";
 }
 
 /**
@@ -165,6 +162,8 @@ function filterPostsAndUpdatePage(){
     filteredPosts = allPosts;
   }
 
+  console.log(filteredPosts);
+
   createPosts(document.getElementById("feed"), filteredPosts);
 }
 
@@ -188,9 +187,13 @@ async function reloadPostCallback() {
   }
 }
 
+function updateUsername(){
+  document.getElementById("username-display").innerHTML = getCurrentUser();
+}
+
 refreshButton.addEventListener('click', reloadPostCallback);
 
 document.getElementById("refresh-button").addEventListener("click", reloadPostCallback);
 // document.getElementById("refresh-button").addEventListener("DOMContentLoaded");
 
-export { reloadPostCallback };
+export { reloadPostCallback, updateUsername };

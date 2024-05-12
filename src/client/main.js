@@ -1,5 +1,5 @@
 import { sendPost } from "./create_post/create_post.js";
-import { reloadPostCallback } from "./home/home.js";
+import { reloadPostCallback, updateUsername } from "./home/home.js";
 
 /**
  * Tracks the current page ID as a string.
