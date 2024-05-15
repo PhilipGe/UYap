@@ -79,6 +79,16 @@ async function getAllPosts() {
   }
 }
 
+/**
+ * Updates the password of an existing user.
+ * 
+ * @async
+ * @function updateUserPassword
+ * @param {string} uname - The username of the user.
+ * @param {string} newPassword - The new password to set.
+ * @returns {Promise<boolean>} - Returns true if the password was updated, false if the user does not exist.
+ */
+
 async function updateUserPassword(uname, newPassword) {
   const exists = await doesUserExist(uname);
   if (exists) {
@@ -91,8 +101,17 @@ async function updateUserPassword(uname, newPassword) {
   return false;
 }
 
+/**
+ * Saves a new user with the specified username and password.
+ * 
+ * @async
+ * @function saveUser
+ * @param {string} username - The username of the new user.
+ * @param {string} password - The password of the new user.
+ * @throws {Error} - Throws an error if the user already exists.
+ * @returns {Promise<string>} - Returns a success message when the user is saved.
+ */
 
-//TODO
 async function saveUser(username, password) {
   const exists = await doesUserExist(username);
 
@@ -101,7 +120,15 @@ async function saveUser(username, password) {
   return "User saved successfully";
 }
 
-//TODO
+/**
+ * Checks if a user exists in the database.
+ * 
+ * @async
+ * @function doesUserExist
+ * @param {string} userId - The ID of the user to check.
+ * @returns {Promise<boolean>} - Returns true if the user exists, false otherwise.
+ */
+
 async function doesUserExist(userId) {
   console.log("User exists running");
   try {
@@ -113,7 +140,16 @@ async function doesUserExist(userId) {
   }
 }
 
-//TODO
+/**
+ * Authenticates a user by checking if the provided password matches the stored password.
+ * 
+ * @async
+ * @function authenticate
+ * @param {string} username - The username of the user.
+ * @param {string} password - The password to authenticate.
+ * @returns {Promise<boolean>} - Returns true if authentication is successful, false otherwise.
+ */
+
 async function authenticate(username, password) {
   let user;
   try {
