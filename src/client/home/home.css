@@ -135,4 +135,7 @@
     border-radius: 50px;
 }
 
+#username-display {
+    padding-left: 20px;
+}
 /* Existing styles for other elements */

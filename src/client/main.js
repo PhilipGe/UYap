@@ -41,6 +41,7 @@ function transitionToPage(page_id) {
   document.getElementById(page_id).style.visibility = "visible";
   if (page_id === "home-page") {
     reloadPostCallback();
+    updateUsername();
   }
 }
 

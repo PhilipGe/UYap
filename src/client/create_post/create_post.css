@@ -4,6 +4,7 @@ html {background-color: #303030}
 .dropdown-check-list {
     float: right;
     font-family: inherit;
+    width: 160px;
   }
   
   .dropdown-check-list .anchor {

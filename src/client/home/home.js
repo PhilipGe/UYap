@@ -30,10 +30,11 @@ function createPosts(parent, posts) {
     let postText =
       "posted " +
       post.timestamp +
-      "<br><br><b>" +
+      "<br><br><b>Title: </b> " +
+      post.title +
+      "<br><br><b>Author: </b>" +
       post.user_id +
-      "</b>" +
-      " said: <br><br>" +
+      "<br><br>" +
       post.body +
       "<br><br>Tags: " +
       post.tags.reduce((acc, curr) => {
@@ -50,6 +51,7 @@ function createPosts(parent, posts) {
             const response = await fetch(`${URL}/deletepost/${post._id}`, {
               method: "DELETE"
             });
+            reloadPostCallback();
           } catch(error){
               alert("can't delete post")
           }
@@ -187,7 +189,8 @@ async function reloadPostCallback() {
 }
 
 function updateUsername(){
-  document.getElementById("username-display").innerHTML = getCurrentUser();
+  console.log("Updating username to : " + getCurrentUser())
+  document.getElementById("username-display").innerHTML = "Welcome " + getCurrentUser() + "!";
 }
 
 refreshButton.addEventListener('click', reloadPostCallback);
@@ -200,10 +203,17 @@ document.getElementById("refresh-button").addEventListener("click", reloadPostCa
  * Prompts the user for a new password and sends a PUT request to update the password.
  */
 function handleChangePassword() {
-  const username = prompt("Enter your username:");
   const newPassword = prompt("Enter your new password:");
+  const confirmNewPassword = prompt("Confirm your new password:");
 
-  if (username && newPassword) {
+  if (newPassword && confirmNewPassword) {
+    if(newPassword !== confirmNewPassword){
+      alert("Passwords must match!");
+      return;
+    }
+    
+    const username = getCurrentUser();
+    
     fetch(`${URL}/change_password`, {
       method: "PUT",
       headers: {

@@ -33,7 +33,8 @@
     "cadence": "http-server cadencetest -p 3000 -c-1 -o -s",
     "michael": "http-server michaelTest -p 3000 -c-1 -o -s",
     "milestone-02": "http-server src/client -p 3000 -c-1 -o -s",
-    "milestone-03": "node src/server/server.js",
+    "milestone-03": "open http://localhost:3260 && node src/server/server.js",
+    "kill-this": "kill -9 $(lsof -t -i :3260)",
     "gpt": "http-server gpt_testst -p 3000 -c-1 -o -s",
     "validate-html": "html-validate 'src/**/*.html'",
     "server": "node src/server/server.js",
@@ -48,6 +49,8 @@
   },
   "dependencies": {
     "express": "^4.19.2",
-    "pouchdb": "^8.0.1"
+    "open": "^10.1.0",
+    "pouchdb": "^8.0.1",
+    "pouchdb-find": "^8.0.1"
   }
 }

@@ -5,9 +5,10 @@
    */
 function getCurrentUser() {
     // change to fetch from server later
-    const active = localStorage.setItem("session-active", false);
+    const active = localStorage.getItem("session-active");
     const lastLoggedInUser = localStorage.getItem("last-user");
 
+  console.log(`${active} + ${lastLoggedInUser}`);
   if (active && lastLoggedInUser) {
     return lastLoggedInUser;
   } else {

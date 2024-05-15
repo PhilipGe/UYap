@@ -1,8 +1,6 @@
 import {Post} from "../data_structures/post.js";
 import { getCurrentUser } from "../utils/utils.js";
-//import {savePost} from "../db/db_functions_2.js";
 const URL = "http://localhost:3260";
-
 
 
 const bodyEl = document.getElementById("body-text");
@@ -13,7 +11,7 @@ const checkList = document.getElementById('list1');
 
 const placeholderID = 234221;
 
-let tags = ["tag one", "tag two", "tag three", "tag four", "tag five"];
+let tags = ["Announcement", "Job", "Yap", "Event"];
 let checkBoxEls = [];
 
 /**

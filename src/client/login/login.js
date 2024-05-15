@@ -1,9 +1,13 @@
 import { transitionToPage } from "../main.js";
-import {
-  doesUserExist,
-  saveUser,
-  authenticate,
-} from "../db/db_functions_2.js";
+import { updateUsername } from "../home/home.js"
+// import {
+//   doesUserExist,
+//   saveUser,
+//   authenticate,
+// } from "../db/db_functions_2.js";
+
+const URL = "http://localhost:3260";
+
 // Person and Post data structures could be defined here if needed
 
 // function dummyBackendAuthOutput(username, password){
@@ -17,26 +21,47 @@ import {
  * Uses local storage to check if the provided credentials match the stored values.
  * @param {string} username - The username input from the user.
  * @param {string} password - The password input from the user.
- * @returns {Promise<boolean>} Promise that resolves to true if login is successful, false otherwise.
+ * @returns {Promise<void>} Promise that resolves to true if login is successful, false otherwise.
  */
-function loginUser(username, password) {
-  return new Promise((resolve, reject) => {
-    // Retrieve credentials from local storage
-    authenticate(username, password)
-      .then((valid) => {
-        // register new user login on localStorage
-        if(valid){
-            transitionToPage("home-page");
-            localStorage.setItem("last-user", username);
-            updateUsername();
-        }else{
-            alert("Incorrect username or password.");
-        }
-      })
-      .catch((err) => {
-        alert("Incorrect username or password.");
-      });
+async function loginUser(username, password) {
+  
+  const res = await fetch(`${URL}/authenticate`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      username: username,
+      password: password
+    })
   });
+
+  if(res.status === 200){
+    const success = (await res.json()).success;
+    if(success) return true;
+    else return false;
+  }
+
+
+  throw new Error(await res.text());
+
+  // return new Promise((resolve, reject) => {
+  //   // Retrieve credentials from local storage
+  //   authenticate(username, password)
+  //     .then((valid) => {
+  //       // register new user login on localStorage
+  //       if(valid){
+  //           transitionToPage("home-page");
+  //           localStorage.setItem("last-user", username);
+  //           updateUsername();
+  //       }else{
+  //           alert("Incorrect username or password.");
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       alert("Incorrect username or password.");
+  //     });
+  // });
 }
 
 /**
@@ -71,27 +96,27 @@ function validatePassword(password) {
  * @param {string} password - The password input from the user.
  * @returns {Promise<void>} Promise that resolves when user is created, or rejects if user exists or password is invalid.
  */
-function registerUser(username, password, password_confirm) {
-  return new Promise((resolve, reject) => {
-    if (password_confirm !== password) {
-      reject("Passwords do not match!");
-    }
+async function registerUser(username, password, password_confirm) {
+  if (password_confirm !== password) {
+    throw new Error("Passwords do not match!");
+  }
 
-    doesUserExist(username).then(async (exists) => {
-      if (!exists && validatePassword(password)) {
-        // TODO: Stick in call for database saving (await)
-        await saveUser(username, password);
-        resolve("User saved successfully");
-      } else if (exists) {
-        console.log("Here!");
-        reject("User already exists");
-      } else {
-        reject(
-          "Password does not meet requirements. Must be characters and have a number and letter in it."
-        );
-      }
-    });
-  });
+ const res = await fetch(`${URL}/create_user`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password
+      })
+    })
+  
+  if(res.status === 200){
+    return;
+  }
+
+  throw new Error(await res.text());
 }
 
 // Automatically populate the username field if a last logged-in user exists
@@ -109,7 +134,19 @@ document
     event.preventDefault();
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
-    loginUser(username, password);
+    loginUser(username, password).then(
+      loginSuccessful => {
+        if(loginSuccessful){
+          document.getElementById("password").value = "";
+
+          transitionToPage("home-page");
+          localStorage.setItem("last-user", username);
+          updateUsername();
+        }else{
+          alert("Incorrect username or password.");
+        }
+      }
+    ).catch(err => alert(err.message));
     localStorage.setItem("session-active", true);
   });
 
@@ -123,13 +160,18 @@ document
     const confirm_password = document.getElementById("confirmPassword").value;
 
     registerUser(username, password, confirm_password)
-      .then(() => {
+      .then((v) => {
+        document.getElementById("newUsername").value = "";
+        document.getElementById("newPassword").value = "";
+        document.getElementById("confirmPassword").value = "";
+
         transitionToPage("home-page");
         localStorage.setItem("last-user", username);
         updateUsername();
         localStorage.setItem("session-active", true);
       })
       .catch((error) => {
+        console.error(error);
         alert(error);
       });
   });
