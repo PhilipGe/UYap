@@ -16,17 +16,6 @@ async function doesItemExist(id) {
   }
 }
 
-// async function removeAll() {
-//   console.log("in remove all");
-//   const result = await database.allDocs({ include_docs: true });
-
-//   const promises = result.rows.map(async row => {
-//       await database.remove(row.doc._id, row.doc._rev);
-//   });
-
-//   await Promise.all(promises);
-// }
-
 async function nextId() {
   try {
     const IDcounter = await database.get("IDcounter");
