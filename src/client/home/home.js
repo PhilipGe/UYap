@@ -4,7 +4,6 @@ import { getAllPosts } from "../db/db_functions_2.js";
 const refreshButton = document.getElementById("refresh-button");
 const URL = "http://localhost:3260";
 
-
 /**
  * Creates a post box element with the given text.
  * @param {string} text - The HTML content representing a post including timestamp, user ID, and message.
@@ -159,8 +158,46 @@ async function reloadPostCallback() {
 }
 
 refreshButton.addEventListener('click', reloadPostCallback);
-
 document.getElementById("refresh-button").addEventListener("click", reloadPostCallback);
-// document.getElementById("refresh-button").addEventListener("DOMContentLoaded");
 
-export { reloadPostCallback };
+// Change Password Functionality
+
+/**
+ * Handles the change password button click event.
+ * Prompts the user for a new password and sends a PUT request to update the password.
+ */
+function handleChangePassword() {
+  const username = prompt("Enter your username:");
+  const newPassword = prompt("Enter your new password:");
+
+  if (username && newPassword) {
+    fetch(`${URL}/change_password`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ username, newPassword })
+    })
+    .then(response => response.json())
+    .then(data => {
+      alert(data.message);
+    })
+    .catch(error => {
+      console.error("Error:", error);
+      alert("Failed to update password.");
+    });
+  } else {
+    alert("Username and new password are required.");
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const changePasswordButton = document.getElementById('change-password-button');
+  if (changePasswordButton) {
+    changePasswordButton.addEventListener('click', handleChangePassword);
+  } else {
+    console.error('Change Password Button not found');
+  }
+});
+
+

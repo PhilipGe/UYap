@@ -21,52 +21,48 @@
         <!-- <button id="home-button"></button> -->
         <p id="HOME-title-text"> UYap </p>
         <button id="profile-button"></button>
+        <button id="change-password-button"></button>
       </div>
       <div id="create-post-popup"></div>
       <button id="HOME-create-post-button"></button>
-      <button id ="refresh-button"></button>
+      <button id="refresh-button"></button>
       <div id="tag_list_container"></div>
     </div>
 
     <div id="create-post-page">
-    <p id="loading"> </p>
-
-    <div class = "container">
-      <div id="top-bar" class="container-element"> 
-        <div id="create"> Create a Post </div>
-
-        <div id="list1" class="dropdown-check-list" tabindex="100">
-          <span class="anchor">tags</span>
-          <ul class="items" id="menu">
-          </ul>
+      <p id="loading"> </p>
+      <div class="container">
+        <div id="top-bar" class="container-element"> 
+          <div id="create"> Create a Post </div>
+          <div id="list1" class="dropdown-check-list" tabindex="100">
+            <span class="anchor">tags</span>
+            <ul class="items" id="menu"></ul>
+          </div>
         </div>
-
-        
+        <textarea cols="60" rows="1" class="container-element" id="title-text" placeholder="title"></textarea>
+        <textarea cols="60" rows="5" class="container-element" id="body-text" placeholder="body"></textarea>
+        <button id="submit-post" class="container-element"> post </button>
       </div>
-      <textarea  cols="60" rows="1" class="container-element" id="title-text" placeholder="title"></textarea>
-      <textarea  cols="60" rows="5" class="container-element" id="body-text" placeholder="body"></textarea>
-      <button id="submit-post" class="container-element"> post </button>
     </div>
-  </div>
-  
-  <div id="login-page">
-    <div class="login-container">
-      <h2>Login</h2>
-      <form id="loginForm">
+    
+    <div id="login-page">
+      <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
           <label for="username">Username:</label>
           <input type="text" id="username" name="username" required>
           <label for="password">Password:</label>
           <input type="password" id="password" name="password" required>
           <button type="submit" class="login-button" id="login-button">Login</button>
           <p>Don't have an account? <a href="#" id="sign-up-here">Sign up here</a></p>
-      </form>
-  </div>
-  </div>
+        </form>
+      </div>
+    </div>
 
-  <div id="signup-page">
-    <div class="signup-container">
-      <h2>Sign Up</h2>
-      <form id="signupForm">
+    <div id="signup-page">
+      <div class="signup-container">
+        <h2>Sign Up</h2>
+        <form id="signupForm">
           <label for="newUsername">Username:</label>
           <input type="text" id="newUsername" name="newUsername" required>
           <label for="newPassword">Password:</label>
@@ -74,9 +70,9 @@
           <label for="confirmPassword">Confirm Password:</label>
           <input type="password" id="confirmPassword" name="confirmPassword" required>
           <button type="submit" class="login-button" id="signup-button">Sign Up</button>
-      </form>
-      <p>Already have an account? <a href="#" id="log-in-here">Log in here</a></p>
-  </div>
-  </div>
-</body>
+        </form>
+        <p>Already have an account? <a href="#" id="log-in-here">Log in here</a></p>
+      </div>
+    </div>
+  </body>
 </html>

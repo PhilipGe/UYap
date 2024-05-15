@@ -106,3 +106,18 @@
 .tagButton {
     color: white;
 }
+
+#change-password-button {
+    width: 40px;
+    height: 40px;
+    background-color: lightgray;
+    position: absolute;
+    right: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-image: url(../imgs/reset-password-1.png); /* Add appropriate icon */
+    background-size: cover;
+    border-radius: 50px;
+}
+
+/* Existing styles for other elements */
