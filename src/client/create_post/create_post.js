@@ -1,5 +1,6 @@
 import {Post} from "../data_structures/post.js";
-import {savePost} from "../db/db_functions_2.js";
+import { getCurrentUser } from "../utils/utils.js";
+//import {savePost} from "../db/db_functions_2.js";
 const URL = "http://localhost:3260";
 
 
@@ -114,18 +115,23 @@ async function sendPost() {
 
     loadEl.textContent = "Sending post...";
 
+    const currentID = await getCurrentUser();
     let tags = getTags();
-    let newPost = new Post(titleEl.value, bodyEl.value, tags, placeholderID, totalDate);
+    let newPost = new Post(titleEl.value, bodyEl.value, tags, currentID, totalDate);
 
-    const response = await fetch(`${URL}/savepost`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            post: newPost
-        })
-    });
+    try {
+        const response = await fetch(`${URL}/savepost`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    post: newPost
+                })
+            });
+    } catch (err) {
+        alert("There was an error saving your post.")
+    }   
 
     clearText();
 }

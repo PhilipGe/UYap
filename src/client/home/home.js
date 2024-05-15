@@ -1,5 +1,6 @@
 import { Post } from "../data_structures/post.js";
-import { getAllPosts } from "../db/db_functions_2.js";
+import { getCurrentUser } from "../utils/utils.js";
+//import { getAllPosts } from "../db/db_functions_2.js";
 
 const refreshButton = document.getElementById("refresh-button");
 const URL = "http://localhost:3260";
@@ -9,16 +10,18 @@ const URL = "http://localhost:3260";
  * @param {string} text - The HTML content representing a post including timestamp, user ID, and message.
  * @returns {HTMLDivElement} A div element styled as a post box containing the post.
  */
-function createBox(text) {
+function createBox(text, deleteButton) {
   let temp = document.createElement("div");
-  temp.innerHTML = text;
+  temp.innerHTML = text + "<br><br>";
   temp.classList.add("post-box");
+  temp.appendChild(deleteButton);
+
   return temp;
 }
 
 /**
  * Renders posts into a specified parent element.
- * @param {HTMLElement} parent - The container element where posts will be appended.
+ * @param {HTMLElement} parent - The container element wh ere posts will be appended.
  * @param {Post[]} posts - An array of post objects to be displayed.
  */
 function createPosts(parent, posts) {
@@ -36,8 +39,27 @@ function createPosts(parent, posts) {
       post.tags.reduce((acc, curr) => {
         return acc + "<button id ='filterB' style='background-color: #2c2e36; color: white';>" + curr + "</button>"
       }, '');
+      if(getCurrentUser() === post.user_id){
+        const thisDeleteButton = document.createElement('button');
+        thisDeleteButton.id = 'delete_post_button';
+        thisDeleteButton.innerText = "delete post";
 
-    parent.appendChild(createBox(postText));
+        thisDeleteButton.addEventListener("click", async (event) => {
+          console.log("deleting post with id: ", post._id);
+          try {
+            const response = await fetch(`${URL}/deletepost/${post._id}`, {
+              method: "DELETE"
+            });
+          } catch(error){
+              alert("can't delete post")
+          }
+        })
+
+        parent.appendChild(createBox(postText, thisDeleteButton));
+      }
+      else{
+        parent.appendChild(createBox(postText, document.createElement("div")));
+      }
   });
 }
 
@@ -109,7 +131,12 @@ function buildTagButtonListForFiltering(parent, tagList){
  * @returns {Promise<Post[]>} A promise that resolves with an array of updated posts.
  */
 async function getNewPostList() {
-  return fetch(`${URL}/get_all_posts`, {method: "GET"}).then(response => response.json());
+  try {
+    return fetch(`${URL}/get_all_posts`, {method: "GET"}).then(response => response.json());
+  } catch (err) {
+    alert("there was an error retrieving the posts");
+    return [];
+  }
 }
 
 /**
@@ -134,6 +161,8 @@ function filterPostsAndUpdatePage(){
     filteredPosts = allPosts;
   }
 
+  console.log(filteredPosts);
+
   createPosts(document.getElementById("feed"), filteredPosts);
 }
 
@@ -155,6 +184,10 @@ async function reloadPostCallback() {
     document.getElementById("feed").innerHTML =
       error;
   }
+}
+
+function updateUsername(){
+  document.getElementById("username-display").innerHTML = getCurrentUser();
 }
 
 refreshButton.addEventListener('click', reloadPostCallback);
@@ -201,3 +234,4 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+export { reloadPostCallback, updateUsername };

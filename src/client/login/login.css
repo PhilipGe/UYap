@@ -11,7 +11,7 @@ html {
     float: top;
     background-color: #767c87;
     color: white;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Courier New', Courier, monospace;
     padding: 6px;
     margin: 12px;
     border: none;
@@ -25,7 +25,7 @@ html {
     right: 0;
     transform: translate(-100%, -100%);
     color: white;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 /* Main container for centering elements like forms */
@@ -52,7 +52,7 @@ html {
     background-color: #767c87;
     padding: 10px;
     margin: 8px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Courier New', Courier, monospace;
     color: white;
     border: none;
     outline: none;
