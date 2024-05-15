@@ -9,8 +9,6 @@ const titleEl = document.getElementById("title-text");
 const menuEl = document.getElementById("menu");
 const checkList = document.getElementById('list1');
 
-const placeholderID = 234221;
-
 let tags = ["Announcement", "Job", "Yap", "Event"];
 let checkBoxEls = [];
 
