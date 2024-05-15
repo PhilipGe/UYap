@@ -1,6 +1,10 @@
 import PouchDB from 'pouchdb';
 const database = new PouchDB("UYapDB");
 
+function alert(alert_str){
+  console.log("ALERT: " + alert_str);
+}
+
 async function doesItemExist(id) {
   try {
     const doc = await database.get(id);

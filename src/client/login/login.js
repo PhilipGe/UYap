@@ -28,6 +28,7 @@ function loginUser(username, password) {
         if(valid){
             transitionToPage("home-page");
             localStorage.setItem("last-user", username);
+            updateUsername();
         }else{
             alert("Incorrect username or password.");
         }
@@ -125,6 +126,7 @@ document
       .then(() => {
         transitionToPage("home-page");
         localStorage.setItem("last-user", username);
+        updateUsername();
         localStorage.setItem("session-active", true);
       })
       .catch((error) => {
