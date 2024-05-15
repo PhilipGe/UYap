@@ -80,7 +80,6 @@ function getPostsInTimeFrame(start_time, end_time) {}
 
 function getPostsByTag(tag) {}
 
-//TODO
 async function saveUser(username, password) {
   const exists = await doesUserExist(username);
 
@@ -89,7 +88,6 @@ async function saveUser(username, password) {
   return "User saved successfully";
 }
 
-//TODO
 async function doesUserExist(userId) {
   console.log("User exists running");
   try {
@@ -101,7 +99,6 @@ async function doesUserExist(userId) {
   }
 }
 
-//TODO
 async function authenticate(username, password) {
   let user;
   try {

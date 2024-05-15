@@ -35,18 +35,6 @@ async function loginUser(username, password) {
 }
 
 /**
- * Validates the password requirements.
- * Ensures the password is at least 8 characters long and contains at least one number and one letter.
- * @param {string} password - The password input from the user.
- * @returns {boolean} True if the password meets the requirements, false otherwise.
- */
-function validatePassword(password) {
-  return (
-    password.length >= 8 && /[a-zA-Z]/.test(password) && /\d/.test(password)
-  );
-}
-
-/**
  * Registers a new user, stores credentials in local storage.
  * Handles validation of the password and checks if the user already exists.
  * @param {string} username - The username input from the user.
