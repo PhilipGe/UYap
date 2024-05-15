@@ -16,6 +16,9 @@ async function doesItemExist(id) {
   }
 }
 
+/**
+   * Get the next available ID to assign to a post from the IDcounter document. Create the IDcounter document if it does not exist yet.
+   */
 async function nextId() {
   try {
     const IDcounter = await database.get("IDcounter");
@@ -29,6 +32,10 @@ async function nextId() {
   }
 }
 
+/**
+   * Delete a post from the database
+   * @param {string} the ID of the post to delete
+   */
 async function deletePost(postId) {
   try {
     const thisPost = await database.get(postId);
@@ -38,6 +45,10 @@ async function deletePost(postId) {
   }
 }
 
+/**
+   * Save a post to the database.
+   * @param {object} an object containing all the data of the post
+   */
 async function savePost(post) {
   try {
     const nxtId = await nextId();
@@ -48,6 +59,10 @@ async function savePost(post) {
   }
 }
 
+/**
+   * Get all posts in the database
+   * @param {object[]} an array of all the posts in the database
+   */
 async function getAllPosts() {
   try {
     const result = await database.allDocs({ include_docs: true });
@@ -76,9 +91,6 @@ async function updateUserPassword(uname, newPassword) {
   return false;
 }
 
-function getPostsInTimeFrame(start_time, end_time) {}
-
-function getPostsByTag(tag) {}
 
 //TODO
 async function saveUser(username, password) {
@@ -115,8 +127,6 @@ async function authenticate(username, password) {
 
 export {
   savePost,
-  getPostsInTimeFrame,
-  getPostsByTag,
   saveUser,
   doesUserExist,
   authenticate,

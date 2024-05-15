@@ -4,8 +4,9 @@ UYap is a platform for UMass students to communicate freely with each other.
 
 Our application has four views, a login view, a sign-up view, the home page, and a view for creating a post.
 
+To run the application, use "npm run milestone-03". If the server was started successfully, you will see "Server is running on http://localhost:3260". Click the link to open the page in your browser.
 
-After running the milestone-03 script, you will be brought to the login page. Login in with your username as password and the application will verify that they are correct and if so bring you to the homepage. 
+When you enter the application, you will be brought to the login page. Login in with your username as password and the application will verify that they are correct and if so bring you to the homepage. 
 
 If you do not yet have an account, choose sign up. Choose a username and password. The application will make sure the password you choose meets password requirements, verify that it matches the retype password field and save your login information in the database. 
 
